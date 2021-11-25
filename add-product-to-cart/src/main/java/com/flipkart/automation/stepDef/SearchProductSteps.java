@@ -33,12 +33,15 @@ public class SearchProductSteps extends BasePage {
 	@And("^then adds the product to cart$")
 	public void then_adds_the_product_to_cart() throws InterruptedException{
 		Thread.sleep(5);
-		clickUsingActions(prop.getProperty("xpath.buyNow"));
+		switchtoNewWindow();
+		waitandclick(prop.getProperty("xpath.addtocart"));
 	}
 
 	@Then("^verifies the product \"([^\"]*)\" is added to cart$")
 	public void verifies_the_product_is_added_to_cart(String productName){
-	    
+		switchtoNewWindow();
+		verifyItem(prop.getProperty("xpath.cartValidation"));
+		closeDriver();
 	}
 	
 	

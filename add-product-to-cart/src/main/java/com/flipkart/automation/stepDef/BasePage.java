@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -96,6 +97,31 @@ public class BasePage {
 		By element = By.xpath(xpath);
 		Actions action = new Actions(driver);
 		action.moveToElement(driver.findElement(element)).click().build().perform();
+	}
+	
+	public void switchtoNewWindow() {
+		
+		for (String windows : driver.getWindowHandles()) {
+			
+			driver.switchTo().window(windows);
+		}
+		
+	}
+	
+	public void verifyItem(String xpath) {
+		
+		
+		By byLocator = By.xpath(xpath);		
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		String actual = wait.until(ExpectedConditions.visibilityOfElementLocated(byLocator)).getText();
+		
+		Assert.assertEquals("APPLE iPhone 12 (Black, 64 GB)",actual);
+		
+	}
+	
+	public void closeDriver() {
+		driver.close();
+		driver.quit();
 	}
 
 }
